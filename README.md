@@ -1,1 +1,1 @@
-This is a simple blog that that uses Flask and Docker.
+This is a quick Flask app displaying `Hello World`.
