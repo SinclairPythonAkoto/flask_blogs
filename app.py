@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 # config your host & port for app
 HOST = "0.0.0.0"
-PORT = 5001
+PORT = 5002
 
 
 # config db
