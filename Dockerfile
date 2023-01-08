@@ -1,12 +1,10 @@
-FROM python:3.8.3-alpine
+FROM python:3.10-alpine
 
 WORKDIR /app
 
-COPY requirements.txt .
+ADD . /app
 
 RUN pip install -r requirements.txt
-
-COPY . .
 
 EXPOSE 5002
 
