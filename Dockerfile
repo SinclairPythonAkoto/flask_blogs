@@ -4,7 +4,6 @@ WORKDIR /app
 
 ADD . /app
 
-RUN pip install swagger-ui-py
 RUN pip install -r requirements.txt
 
 
