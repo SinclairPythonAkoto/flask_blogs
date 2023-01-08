@@ -1,9 +1,0 @@
-version: '3'
-services:
-  flask_blog_app:
-    build: .
-    command: python app.py
-    volumes:
-      - .:/app
-    ports:
-      - "81:5002"
