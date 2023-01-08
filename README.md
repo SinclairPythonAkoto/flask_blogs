@@ -1,3 +1,4 @@
+# Flask Web App - Hello World
 This is a quick Flask app displaying `Hello World`.
 
 With this app the port for the Flask is set to `5001` while the port for the docker is `80`.
@@ -9,7 +10,7 @@ This means that to run the app on my local machine I use `127.0.0.1:5001` and to
 python app.py
 
 # navigate to the web browser
-127.0.0.1:500
+127.0.0.1:5001
 ```
 
 ### Run in container
