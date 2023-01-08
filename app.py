@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify, render_template
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from swagger_ui_py import Api, Operation
+
 
 app = Flask(__name__)
 
@@ -57,6 +59,19 @@ def create_post():
 
 # backend api
 @app.route('/posts')
+@Api(
+    title='Blog API',
+    version='1.0',
+    description='A simple API for creating and retrieving blog posts',
+)
+@Operation(
+    summary='Get all blog posts',
+    description='Retrieves a list of all blog posts from the database',
+    responses={
+        200: {'description': 'Success'},
+        500: {'description': 'Internal server error'},
+    }
+)
 def get_posts():
     # Fetch all posts from the database
     posts = session.query(Post).all()
@@ -71,6 +86,7 @@ def get_posts():
         })
 
     return jsonify(post_list)
+
 
 
 
