@@ -1,8 +1,10 @@
+# Flask Blog - Monolith
+
 This is a simple Flak blog app within a monolithic structure deployed from a docker container.
 
-The Flask port for this app is set to 5002 while the port for the docker is 81.
+The Flask port for this app is set to `5002` while the port for the docker is `81`.
 
-This means that to run the app on my local machine I use 127.0.0.1:5002 and to run the app with Docker I use 127.0.0.1:81.
+This means that to run the app on my local machine I use `127.0.0.1:5002` and to run the app with Docker I use `127.0.0.1:81`.
 
 ### Run on local machine
 ```
