@@ -5,19 +5,18 @@ from sqlalchemy.orm import sessionmaker
 
 app = Flask(__name__)
 
+
 # config your host & port for app
 HOST = "0.0.0.0"
 PORT = 5001
 
-# add your routes
-@app.route('/')
-def home():
-    return render_template('index.html')
 
-
+# config db
 engine = create_engine('sqlite:///blog.db')
 Base = declarative_base()
 
+
+# create db models
 class Post(Base):
     __tablename__ = 'posts'
     id = Column(Integer, primary_key=True)
@@ -29,6 +28,18 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+
+# add your routes
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+# frontend for creating a blog
+@app.route('/create')
+def create_post_form():
+    return render_template('create_post.html')
+
+# backend for creating a blog
 @app.route('/post', methods=['POST'])
 def create_post():
     # Get the data for the new post from the request
@@ -44,6 +55,7 @@ def create_post():
 
     return 'Post created successfully!'
 
+# backend api
 @app.route('/posts')
 def get_posts():
     # Fetch all posts from the database
