@@ -48,7 +48,7 @@ def create_blog():
 @app.route('/post/<int:post_id>')
 def get_post(post_id):
     # get a specific post
-    post = Blog.query.get(post_id)
+    post = session.query(Blog).filter_by(id=post_id).first()
     res = {
         'id': post.id,
         'title': post.title,
