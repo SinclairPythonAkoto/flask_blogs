@@ -40,12 +40,24 @@ def create_blog():
     session.commit()
 
     success = 'New blog created successfully!'
+    # res = {
+    #     'id': post.id,
+    #     'title': post.tile,
+    #     'content': post.content
+    # }
 
-    return render_template('index.html', success=success)
+    # response = jsonify({
+    #     'status': 'success',
+    #     'message': 'New blog created successfully'
+    # })
+    # response.status_code = 201
+    # return response
+    # return jsonify(res), 201, {'Location': redirect('http://localhost:3303')}
+    return render_template("index.html", success=success)
 
 
 # backend api
-@app.route('/post/<int:post_id>')
+@app.route('/post/<int:post_id>', methods=['GET'])
 def get_post(post_id):
     # get a specific post
     post = session.query(Blog).filter_by(id=post_id).first()
@@ -54,7 +66,7 @@ def get_post(post_id):
         'title': post.title,
         'content': post.content
     }
-    return jsonify(res)
+    return jsonify(res), 200
 
 
 @app.route('/posts')
@@ -71,7 +83,7 @@ def get_posts():
             'content': post.content
         })
 
-    return jsonify(post_list)
+    return jsonify(post_list), 200
 
 
 if __name__ == '__main__':

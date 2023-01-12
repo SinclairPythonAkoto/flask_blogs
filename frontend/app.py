@@ -10,7 +10,7 @@ load_dotenv(dotenv_path='.env')
 # config your host & port for app using environment variables
 HOST = os.environ['HOST']
 PORT = os.environ['FRONTEND_PORT']
-BACKEND_PORT = os.environ['BACKEND_PORT']
+
 
 
 # define routes
@@ -21,7 +21,7 @@ def home():
 # frontend for creating a new blog
 @app.route('/create', methods=['GET'])
 def create():
-    return render_template('create_blog.html', bp=BACKEND_PORT)
+    return render_template('create_blog.html')
 
 
 if __name__ == '__main__':
