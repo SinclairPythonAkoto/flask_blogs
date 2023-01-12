@@ -1,10 +1,16 @@
 from flask import Flask, render_template
+import os
+from dotenv import load_dotenv
 
 app = Flask(__name__)
 
-# config your host & port for app
-HOST = "0.0.0.0"
-PORT = 5003
+# set path for environment variables file
+load_dotenv(dotenv_path='.env')
+
+# config your host & port for app using environment variables
+HOST = os.environ['HOST']
+PORT = os.environ['FRONTEND_PORT']
+BACKEND_PORT = os.environ['BACKEND_PORT']
 
 
 # define routes
@@ -15,7 +21,7 @@ def home():
 # frontend for creating a new blog
 @app.route('/create', methods=['GET'])
 def create():
-    return render_template('create_blog.html')
+    return render_template('create_blog.html', bp=BACKEND_PORT)
 
 
 if __name__ == '__main__':
