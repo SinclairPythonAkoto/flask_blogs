@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, url_for, redirect
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -25,9 +25,9 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-
-@app.route('/post', methods=['POST'])
-def create_post():
+# backend for creating a new blog
+@app.route('/create_blog', methods=['POST'])    # the route name CANNOT be the same as the frontend
+def create_blog():
     # Get the data for the new post from the request
     title = request.form['title']
     content = request.form['content']
@@ -39,7 +39,9 @@ def create_post():
     session.add(post)
     session.commit()
 
-    return 'New blog created successfully!'
+    success = 'New blog created successfully!'
+
+    return render_template('index.html', success=success)
 
 
 # backend api

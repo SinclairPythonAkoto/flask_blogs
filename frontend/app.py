@@ -12,7 +12,8 @@ PORT = 5003
 def home():
     return render_template('index.html')
 
-@app.route('/create')
+# frontend for creating a new blog
+@app.route('/create', methods=['GET'])
 def create():
     return render_template('create_blog.html')
 

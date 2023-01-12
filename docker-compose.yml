@@ -3,12 +3,12 @@ services:
   backend:
     build: ./backend
     ports:
-      - "3301:5004"
+      - "3304:5004"
     restart: always
   frontend:
     build: ./frontend
     ports:
-      - "8000:5003"
+      - "3303:5003"
     restart: always
     depends_on:
       - backend
