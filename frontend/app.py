@@ -10,7 +10,10 @@ load_dotenv(dotenv_path='.env')
 # config your host & port for app using environment variables
 HOST = os.environ['HOST']
 PORT = os.environ['FRONTEND_PORT']
+<<<<<<< HEAD
 
+=======
+>>>>>>> a549a6f... remove error
 
 
 # define routes
