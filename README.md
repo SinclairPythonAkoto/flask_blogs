@@ -1,6 +1,7 @@
 # Flask Blog - Microservices
 
 This is a simple Flak blog app within a microservices structure deployed from a docker container.
+In this app I will create a Continuous Intergeration & Continuous Development process to automate my testing.
 
 This web app contains two Flask apps - for the frontend and backend, with a CI/CD pipeline to run
 tests on the frontend & backend.  Because I am testing the Flask apps within the docker containers, 
