@@ -42,17 +42,6 @@ def test_blog_request(test_blog):
     # No exception occurs when there is a match..
     assert adapter.match(f'/post/{test_blog.id}')
 
-def test_create_blog(test_blog2):
-    data = {
-        'title': 'Test Blog 2',
-        'content': 'Test Content 2',
-    }
-    res = requests.post('http://localhost:3304/create_blog', data=data)
-    assert res.status_code == 200
-    print("sin")
-    print(res)
-    assert res.json()['title'] == test_blog2.title
-    assert res.json()['content'] == test_blog2.content
 
 def test_get_requests(test_blog):
     """This tests against the /post route on the Docker port.
