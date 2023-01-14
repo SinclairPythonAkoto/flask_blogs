@@ -3,14 +3,14 @@ services:
   backend:
     build: 
       context: .
-      dockerfile: ./backend/Dockerfile
+      dockerfile: "./backend/Dockerfile"
     ports:
       - "3304:5004"
     restart: always
   frontend:
     build:
     context: . 
-    dockerfile: ./frontend/Dockerfile
+    dockerfile: "./frontend/Dockerfile"
     ports:
       - "3303:5003"
     restart: always
