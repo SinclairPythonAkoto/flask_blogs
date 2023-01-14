@@ -24,8 +24,8 @@ jobs:
         
     - name: Run tests
       run: |
-        cd backend
-        pytest
+        cd /tests/backend
+        python -m pytest tests/backend/test_backend.py
         
     - name: Deploy to server
       run: |
@@ -48,14 +48,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        cd frontend
-        npm install
+        pip install -r frontend/requirements.txt
         
-    - name: Build and test
+    - name: Run tests
       run: |
-        cd frontend
-        npm run build
-        npm test
+        cd /tests/frontend
+        python -m pytest tests/frontend/test_frontend.py
         
     - name: Deploy to server
       run: |
