@@ -53,6 +53,7 @@ def create_blog():
     # response.status_code = 201
     # return response
     # return jsonify(res), 201, {'Location': redirect('http://localhost:3303')}
+    session.close()
     return render_template("index.html", success=success)
 
 
@@ -66,6 +67,7 @@ def get_post(post_id):
         'title': post.title,
         'content': post.content
     }
+    session.close()
     return jsonify(res), 200
 
 
@@ -82,7 +84,7 @@ def get_posts():
             'title': post.title,
             'content': post.content
         })
-
+        session.close()
     return jsonify(post_list), 200
 
 
