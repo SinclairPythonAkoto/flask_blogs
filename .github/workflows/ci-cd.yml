@@ -6,66 +6,84 @@ on:
       - master
 
 jobs:
-  backend:
-    runs-on: ubuntu-latest
+    build:
+      strategy:
+        matrix:
+          python-version: [3.8.3]
 
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-        
-    - name: Install dependencies
-      run: |
-        pip install -r backend/requirements.txt
-        
-    - name: Run tests
-      run: |
-        # cd flask_blog/tests/backend/
-        python -m pytest flask_blog/tests/backend/
 
+    backend:
+      runs-on: ubuntu-latest
+
+      steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
         
-    - name: Deploy to server
-      run: |
-        # Build the container image
-        docker build -t my-backend-app:latest .
-        # Log in to the container registry
-        echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
-        # Push the container image to the registry
-        docker push my-backend-app:latest
-        # SSH into the server
-        ssh pythonakoto@0.0.0.0:3304 "docker-compose pull flask_blogs-backend-1 && docker-compose up -d flask_blogs-backend-1"
+      - name: Switch to Current Branch
+        run: git checkout ${{ env.BRANCH }}
+              
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install -e .
+          
+      - name: Run tests
+        run: |
+          # cd flask_blog/tests/backend/
+          python -m pytest --import-mode=append tests/backend/  
+
+      - name: Deploy to server
+        run: |
+          # Build the container image
+          docker build -t my-backend-app:latest .
+          # Log in to the container registry
+          echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+          # Push the container image to the registry
+          docker push my-backend-app:latest
+          # SSH into the server
+          ssh pythonakoto@0.0.0.0:3304 "docker-compose pull flask_blogs-backend-1 && docker-compose up -d flask_blogs-backend-1"
 
         
   frontend:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Install dependencies
-      run: |
-        pip install -r frontend/requirements.txt
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
         
-    - name: Run tests
-      run: |
-        # cd flask_blog/tests/frontend/
-        python -m pytest flask_blog/tests/frontend/
+      - name: Switch to Current Branch
+        run: git checkout ${{ env.BRANCH }}
+              
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
 
-        
-    - name: Deploy to server
-      run: |
-        # Build the container image
-        docker build -t my-backend-app:latest .
-        # Log in to the container registry
-        echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
-        # Push the container image to the registry
-        docker push my-backend-app:latest
-        # SSH into the server
-        ssh pythonakoto@0.0.0.0:3303 "docker-compose pull flask_blogs-frontend-1 && docker-compose up -d flask_blogs-frontend-1"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+          pip install -e .
+          
+      - name: Deploy to server
+        run: |
+          # Build the container image
+          docker build -t my-backend-app:latest .
+          # Log in to the container registry
+          echo "${{ secrets.REGISTRY_PASSWORD }}" | docker login -u "${{ secrets.REGISTRY_USERNAME }}" --password-stdin
+          # Push the container image to the registry
+          docker push my-backend-app:latest
+          # SSH into the server
+          ssh pythonakoto@0.0.0.0:3303 "docker-compose pull flask_blogs-frontend-1 && docker-compose up -d flask_blogs-frontend-1"
 
 
