@@ -24,7 +24,7 @@ jobs:
         
     - name: Run tests
       run: |
-        cd flask_blog/tests/backend/
+        # cd flask_blog/tests/backend/
         python -m pytest flask_blog/tests/backend/
 
         
@@ -53,7 +53,7 @@ jobs:
         
     - name: Run tests
       run: |
-        cd flask_blog/tests/frontend/
+        # cd flask_blog/tests/frontend/
         python -m pytest flask_blog/tests/frontend/
 
         
