@@ -24,8 +24,9 @@ jobs:
         
     - name: Run tests
       run: |
-        cd /tests/backend
-        python -m pytest tests/backend/test_backend.py
+        cd flask_blog/tests/backend/
+        python -m pytest flask_blog/tests/backend/
+
         
     - name: Deploy to server
       run: |
@@ -52,8 +53,9 @@ jobs:
         
     - name: Run tests
       run: |
-        cd /tests/frontend
-        python -m pytest tests/frontend/test_frontend.py
+        cd flask_blog/tests/frontend/
+        python -m pytest flask_blog/tests/frontend/
+
         
     - name: Deploy to server
       run: |
